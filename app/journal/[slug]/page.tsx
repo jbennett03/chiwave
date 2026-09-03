@@ -6,8 +6,13 @@ export function generateStaticParams() {
   return getAllEntries().map((entry) => ({ slug: entry.slug }))
 }
 
-export default function JournalEntryPage({ params }: { params: { slug: string } }) {
-  const entry = getEntry(params.slug)
+export default async function JournalEntryPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}) {
+  const { slug } = await params
+  const entry = getEntry(slug)
   if (!entry) notFound()
 
   const paragraphs = entry.content.trim().split(/\n\s*\n/)
