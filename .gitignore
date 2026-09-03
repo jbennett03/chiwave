@@ -1,0 +1,19 @@
+# dependencies
+node_modules
+
+# Next.js build output
+.next
+out
+
+# Cloudflare/OpenNext build output
+.open-next
+.vercel
+.wrangler
+
+# environment variables (secrets — never commit these)
+.env
+.env*.local
+
+# OS/editor cruft
+.DS_Store
+*.log
