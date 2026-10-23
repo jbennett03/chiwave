@@ -16,7 +16,7 @@ export function TopNav() {
       <div className="max-w-content mx-auto px-8 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2.5 font-display font-semibold text-xl text-paper">
           <span className="w-5 h-5 rounded-full bg-gradient-to-br from-gold via-rust to-sage" />
-          Wavelog
+          Chiwave
         </Link>
         <nav className="flex">
           {links.map((l) => {

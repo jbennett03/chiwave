@@ -2,7 +2,7 @@ import type { AlbumMeta } from './types'
 
 // MusicBrainz asks that requests identify the calling application.
 // Replace with your own site name/contact per their usage policy.
-const USER_AGENT = 'Wavelog/1.0 (https://wavelog.example.com)'
+const USER_AGENT = 'Chiwave/1.0 (https://github.com/jbennett03/chiwave)'
 
 function placeholderMeta(mbid: string): AlbumMeta {
   return {

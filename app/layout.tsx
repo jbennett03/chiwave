@@ -22,7 +22,7 @@ const jetbrains = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Wavelog — a listening diary',
+  title: 'Chiwave — a listening diary',
   description: 'A running log of albums, logged one at a time, year by year.',
 }
 

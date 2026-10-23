@@ -1,4 +1,4 @@
-# Wavelog
+# Chiwave
 
 A personal music listening diary built with Next.js App Router, TypeScript, and Tailwind CSS.
 
