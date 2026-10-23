@@ -34,3 +34,13 @@ export function formatMonthLong(monthStr: string): string {
   const d = new Date(`${monthStr}-01T00:00:00`)
   return d.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
 }
+
+// --- Album logged dates: full date ("2026-01-26") formatted as MM/YYYY ---
+
+export function formatAlbumDate(dateStr: string): string {
+  if (!dateStr) return ''
+  const d = new Date(dateStr)
+  const month = String(d.getMonth() + 1).padStart(2, '0')
+  const year = d.getFullYear()
+  return `${month}/${year}`
+}

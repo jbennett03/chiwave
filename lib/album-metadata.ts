@@ -31,12 +31,12 @@ export async function getAlbumMeta(mbid: string): Promise<AlbumMeta> {
     if (!res.ok) return placeholderMeta(mbid)
     const data = await res.json()
 
-    // Cover Art Archive returns a redirect straight to the image when art
+    // Cover Art Archive returns a redirect (307) straight to the image when art
     // exists — we HEAD-check first so pages without cover art still fall
     // back to a gradient instead of a broken image.
     const coverUrl = `https://coverartarchive.org/release-group/${mbid}/front-500`
-    const hasCover = await fetch(coverUrl, { method: 'HEAD' })
-      .then((r) => r.ok)
+    const hasCover = await fetch(coverUrl, { method: 'HEAD', redirect: 'manual' })
+      .then((r) => r.status === 307 || r.ok)
       .catch(() => false)
 
     return {

@@ -1,6 +1,6 @@
 import type { Album } from '@/lib/types'
 import { Tag } from '@/components/ui/Tag'
-import { formatDateLong } from '@/lib/journal'
+import { formatAlbumDate } from '@/lib/format'
 
 const gradients = [
   'linear-gradient(150deg,#D9A441,#A3432B)',
@@ -41,7 +41,7 @@ export function AlbumCard({ album, index }: { album: Album; index: number }) {
       <div className="text-[13px] text-ink-soft">{meta.artist}</div>
       <div className="font-display text-base font-medium mt-0.5">{meta.title}</div>
       <div className="flex gap-1.5 flex-wrap mt-2">
-        <Tag>{formatDateLong(album.loggedDate)}</Tag>
+        <Tag>{formatAlbumDate(album.loggedDate)}</Tag>
       </div>
     </div>
   )
