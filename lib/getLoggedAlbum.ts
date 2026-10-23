@@ -5,15 +5,27 @@ import type { Album } from './types'
 /**
  * Fetches metadata for every logged album, sorted newest-first.
  *
- * Uses parallel fetching to avoid timeout issues on serverless platforms.
- * Page-level `revalidate` caching ensures this only runs once per cache window.
+ * Uses controlled concurrency (5 parallel requests) to respect MusicBrainz rate limits
+ * while avoiding timeout issues on serverless platforms. Page-level `revalidate`
+ * caching ensures this only runs once per cache window.
  */
 export async function getLoggedAlbums(): Promise<Album[]> {
-  const albumPromises = albumsData.map(async (entry) => {
-    const meta = await getAlbumMeta(entry.mbid)
-    return { ...entry, meta }
-  })
+  const CONVERRENCY = 5
+  const albums: Album[] = []
 
-  const albums = await Promise.all(albumPromises)
+  for (let i = 0; i < albumsData.length; i += CONVERRENCY) {
+    const batch = albumsData.slice(i, i + CONVERRENCY)
+    const batchPromises = batch.map(async (entry) => {
+      const meta = await getAlbumMeta(entry.mbid)
+      return { ...entry, meta }
+    })
+    const batchResults = await Promise.all(batchPromises)
+    albums.push(...batchResults)
+    
+    if (i + CONVERRENCY < albumsData.length) {
+      await new Promise((resolve) => setTimeout(resolve, 200))
+    }
+  }
+
   return albums.sort((a, b) => (a.loggedDate < b.loggedDate ? 1 : -1))
 }
