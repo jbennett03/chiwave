@@ -7,6 +7,7 @@
 
 // --- Journal entries: full date ("2026-08-14") ---
 
+
 export function formatDate(dateStr: string): string {
   if (!dateStr) return ''
   const d = new Date(dateStr)
@@ -14,6 +15,7 @@ export function formatDate(dateStr: string): string {
     .toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' })
     .replace(/\//g, '.')
 }
+
 
 export function formatDateLong(dateStr: string): string {
   if (!dateStr) return ''
@@ -23,11 +25,13 @@ export function formatDateLong(dateStr: string): string {
 
 // --- Album entries: month + year only ("2026-08") ---
 
+
 export function formatMonth(monthStr: string): string {
   if (!monthStr) return ''
   const d = new Date(`${monthStr}-01T00:00:00`)
   return d.toLocaleDateString('en-US', { month: '2-digit', year: '2-digit' }).replace(/\//g, '.')
 }
+
 
 export function formatMonthLong(monthStr: string): string {
   if (!monthStr) return ''
@@ -35,12 +39,12 @@ export function formatMonthLong(monthStr: string): string {
   return d.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
 }
 
-// --- Album logged dates: full date ("2026-01-26") formatted as MM/YYYY ---
+// --- Album logged dates: month + year ("2023-10") formatted as MM/YYYY ---
+
 
 export function formatAlbumDate(dateStr: string): string {
   if (!dateStr) return ''
-  const d = new Date(dateStr)
-  const month = String(d.getMonth() + 1).padStart(2, '0')
-  const year = d.getFullYear()
+  // dateStr is in YYYY-MM format
+  const [year, month] = dateStr.split('-')
   return `${month}/${year}`
 }
